@@ -26,23 +26,16 @@ namespace Enumerationen
             double ergebnis = Berechne(z1, z2, operation);
             Console.WriteLine($"Ergebnis: {ergebnis}");
 
-
             Console.BackgroundColor = ConsoleColor.Green;
 
             double ergebnisSub = Berechne(z1, z2, Rechenoperationen.Addition);
 
             double ergebnisDiv = Berechne(z1, z2, Rechenoperationen.Division);
-
-
+ 
             Console.WriteLine($"Ergebnis Division: {ergebnisDiv}");
+            
             Console.ReadKey();
         }
-
-
-
-
-
-
 
         public enum Rechenoperationen { Addition = '+', Subtraktion = '-', Division = '/', Multiplikation = '*' }
 
