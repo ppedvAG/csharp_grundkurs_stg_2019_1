@@ -9,9 +9,6 @@ namespace DEmo
 {
     class Program
     {
-
-
-
         static void Main(string[] args)
         {
             //Instanz der Klasse Person anlegen
@@ -26,7 +23,6 @@ namespace DEmo
             Rechner dell = new Rechner();
             //Eigenschaft name des Objektes dell setzen
             dell.name = "Dell";
-
 
             //Instanz der Klasse Rechner anlegen
             Rechner hp = new Rechner();

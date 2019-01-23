@@ -1,0 +1,20 @@
+﻿<Window x:Class="Hochzeitsmanager.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Hochzeitsmanager"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+    <StackPanel>
+        <ListBox Name="listboxPersonen" />
+        <TextBox Name="textboxVorname" />
+        <TextBox Name="textboxNachname" />
+        <CheckBox Name="checkboxGeschlecht" Content="Männlich" />
+        <DatePicker SelectedDate="1.1.1990" Language="de" Name="datepickerGeburtsdatum"  />
+        <!--Click ruft die Methode Person_Anlegen_Click auf-->
+        <Button Click="Person_Anlegen_Click" >Person anlegen</Button>
+        <ComboBox Name="comboBoxZuHeiratendePerson" />
+        <Button Click="Person_Heiraten_Click">Heirate</Button>
+    </StackPanel>
+</Window>

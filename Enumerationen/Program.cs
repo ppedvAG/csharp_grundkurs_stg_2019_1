@@ -8,6 +8,8 @@ namespace Enumerationen
 {
     class Program
     {
+        public enum Rechenoperationen { Addition = '+', Subtraktion = '-', Division = '/', Multiplikation = '*' }
+
         static void Main(string[] args)
         { 
 
@@ -20,8 +22,14 @@ namespace Enumerationen
 
             char rechenSymbol = Console.ReadKey().KeyChar;
 
+            double gleitkommazahl = 5.20;
+            int ganzkommazahl = (int)gleitkommazahl;
+
+            string asds = rechenSymbol.ToString();
+
             //Casting
             Rechenoperationen operation = (Rechenoperationen)rechenSymbol;
+            operation = (Rechenoperationen)0;
 
             double ergebnis = Berechne(z1, z2, operation);
             Console.WriteLine($"Ergebnis: {ergebnis}");
@@ -37,7 +45,6 @@ namespace Enumerationen
             Console.ReadKey();
         }
 
-        public enum Rechenoperationen { Addition = '+', Subtraktion = '-', Division = '/', Multiplikation = '*' }
 
         /// <summary>
         /// Berechnet 2 Zahlen
