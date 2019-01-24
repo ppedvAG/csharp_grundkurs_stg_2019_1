@@ -12,6 +12,8 @@ namespace Hochzeitsmanager
         //Eigenschaften: prop
         public string Vorname { get; private set; }
 
+        public static bool HomoEheErlaubt { get; set; } = false;
+
         //_ bedeutet: Klassenvaraible
         private string _nachname;
         public string Nachname
@@ -132,6 +134,11 @@ namespace Hochzeitsmanager
                 return false;
 
             //TODO: Gleichgeschlechtlichigkeit prüfen
+            if(HomoEheErlaubt != true && this.Geschlecht == zuHeiratendePerson.Geschlecht)
+            {
+                return false;
+            }
+
 
             //Hochzeit vollziehen
             this.Ehepartner = zuHeiratendePerson;
@@ -148,6 +155,8 @@ namespace Hochzeitsmanager
             }
             return false;
         }
+
+       
 
         /// <summary>
         /// Gibt die wichtigsten Informationen über das Objekt als String aus

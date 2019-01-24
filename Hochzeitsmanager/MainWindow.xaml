@@ -7,6 +7,7 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <StackPanel>
+        <CheckBox Checked="CheckboxHomoehe_Checked" Unchecked="CheckboxHomoehe_Unchecked"  Name="checkboxHomoehe" Content="Homo-Ehe erlaubt?" />
         <ListBox Name="listboxPersonen" />
         <TextBox Name="textboxVorname" />
         <TextBox Name="textboxNachname" />
@@ -14,7 +15,7 @@
         <DatePicker SelectedDate="1.1.1990" Language="de" Name="datepickerGeburtsdatum"  />
         <!--Click ruft die Methode Person_Anlegen_Click auf-->
         <Button Click="Person_Anlegen_Click" >Person anlegen</Button>
-        <ComboBox Name="comboBoxZuHeiratendePerson" />
+        <ListBox Name="comboBoxZuHeiratendePerson" />
         <Button Click="Person_Heiraten_Click">Heirate</Button>
         <Button Click="Heirat_Popup_Click">Heiraten mit Popupbox</Button>
     </StackPanel>
