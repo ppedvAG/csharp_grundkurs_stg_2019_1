@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -27,11 +28,13 @@ namespace Hochzeitsmanager
         public MainWindow()
         {
             InitializeComponent();
+           
             //Code nachdem das Fenster gebaut wurde
             Personenliste = new ObservableCollection<Person>();
             //Synchronisiere ListBox und ComboBox mit der Personenliste
             listboxPersonen.ItemsSource = Personenliste;
             comboBoxZuHeiratendePerson.ItemsSource = Personenliste;
+
         }
         
         private void Person_Anlegen_Click(object sender, RoutedEventArgs e)
@@ -56,15 +59,46 @@ namespace Hochzeitsmanager
         private void Person_Heiraten_Click(object sender, RoutedEventArgs e)
         {
             //TODO: Abfangen wenn keine Person ausgewählt wurde
+            
+            if(listboxPersonen.SelectedItem == null || comboBoxZuHeiratendePerson.SelectedItem == null)
+            {
+                MessageBox.Show("Wähle jeweils eine Person in jeder Liste aus!");
+                return;
+            }
+
             Person personAusListBox = (Person)listboxPersonen.SelectedItem;
             Person personAusComboBox = (Person)comboBoxZuHeiratendePerson.SelectedItem;
 
             bool heiratErfolgreich = personAusListBox.Heirate(personAusComboBox);
 
             if (heiratErfolgreich)
+            {
+                MessageBox.Show("Heirat war erfolgreich!");
+                listboxPersonen.Items.Refresh();
+                comboBoxZuHeiratendePerson.Items.Refresh();
+            }
+            else
+                MessageBox.Show("Heirat ungültig!");
+        }
+
+        private void Heirat_Popup_Click(object sender, RoutedEventArgs e)
+        {
+            HochzeitWindow dialogWindow = new HochzeitWindow(Personenliste);
+            dialogWindow.ShowDialog();
+
+            Person zuHeiratendePerson = dialogWindow.ZuHeiratendePerson;
+
+            Person personAusListBox = (Person)listboxPersonen.SelectedItem;
+            
+
+            bool heiratErfolgreich = personAusListBox.Heirate(zuHeiratendePerson);
+
+            if (heiratErfolgreich)
                 MessageBox.Show("Heirat war erfolgreich!");
             else
                 MessageBox.Show("Heirat ungültig!");
+
+
         }
     }
 }

@@ -6,16 +6,14 @@ using System.Threading.Tasks;
 
 namespace Hochzeitsmanager
 {
-    class Person
+    public class Person
     {
-
 
         //Eigenschaften: prop
         public string Vorname { get; private set; }
 
         //_ bedeutet: Klassenvaraible
         private string _nachname;
-
         public string Nachname
         {
             get { return _nachname; }
@@ -42,10 +40,13 @@ namespace Hochzeitsmanager
             }
         }
 
+        //Getter-Property (nur lesbar, nicht setzbar)
         public int Alter
         {
             get
             {
+                //Berechne das Alter auf Basis des Geburtsdatums und des heutigen Datums
+
                 DateTime today = DateTime.Now;
                 //return today.Year - Geburtsdatum.Year;
 
@@ -79,9 +80,16 @@ namespace Hochzeitsmanager
             get { return _ehepartner; }
             private set
             {
+                if(value == null)
+                {
+                    _ehepartner.Ehepartner = null;
+                }
+                else
+                {
+                    value._ehepartner = this;
+                }
                 _ehepartner = value;
                 //Auch der Ehepartner muss mich als Ehepartner speichern
-                value._ehepartner = this;
             }
         }
 
@@ -100,7 +108,11 @@ namespace Hochzeitsmanager
             Geschlecht = geschlecht;
         }
 
-
+        /// <summary>
+        /// Heirate eine andere Person, wenn Hochzeit legal ist
+        /// </summary>
+        /// <param name="zuHeiratendePerson">Die zu heiratende Person</param>
+        /// <returns>War die Hochzeit erfolgreich?</returns>
         public bool Heirate(Person zuHeiratendePerson)
         {
             //Zu heiratende Person muss existieren
@@ -126,20 +138,42 @@ namespace Hochzeitsmanager
             return true;
         }
 
+        public bool ScheideDich()
+        {
+            //kann geschieden werden?
+            if(Ehepartner != null)
+            {
+                this.Ehepartner = null;
+                return true;
+            }
+            return false;
+        }
+
+        /// <summary>
+        /// Gibt die wichtigsten Informationen über das Objekt als String aus
+        /// </summary>
+        /// <returns>Beschreibung als Zeichenkette</returns>
         public override string ToString()
         {
-            //Max Mustermann (22.2.1990), männlich
-
-            //string geschlecht = Geschlecht ? "weiblich" : "männlich";
-
+            //Max Mustermann (30), männlich, verheiratet mit Anna Weber
+            //Maria Bauer (15), weiblich, ledig
 
             string geschlecht = "weiblich";
             if (Geschlecht)
             {
                 geschlecht = "männlich";
             }
+            #region Kurzschreibweise für die if-Abfrage
+            //string geschlecht = Geschlecht ? "weiblich" : "männlich"
+            #endregion
 
-            return $"{Name} ({Alter}), {geschlecht}";
+            string verheiratet = ", ledig";
+            if(Ehepartner != null)
+            {
+                verheiratet = $" verheiratet mit {Ehepartner.Name}";
+            }
+
+            return $"{Name} ({Alter}), {geschlecht}{verheiratet}";
         }
     }
 }
