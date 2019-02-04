@@ -12,6 +12,8 @@
             <RadioButton Checked="RadioButton_Checked">Punkt</RadioButton>
             <Button Click="Speichern_Click">Speichern</Button>
             <Button Click="Laden_Click">Laden</Button>
+            <Button Click="Speichern_XML_Click">Speichern XML</Button>
+            <Button Click="Laden_XML_Click">Laden XML</Button>
         </StackPanel> 
         <Canvas Name="canvas" Background="Beige" MouseUp="Canvas_MouseUp">
             

@@ -10,8 +10,6 @@ namespace VectorPicasso.Klassen
 {
     public abstract class Grafik
     {
-        //TODO: Strichart hinzufügen
-
         public static Canvas Leinwand { get; set; }
 
         public Brush Strichfarbe { get; set; } = new SolidColorBrush(Colors.Black);

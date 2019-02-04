@@ -18,12 +18,7 @@ namespace VectorPicasso.Klassen
         {
             Ursprung = ursprung;
         }
-
-        public EinPunkt()
-        {
-
-        }
- 
+        
         public override void ZeichneDich()
         {
             System.Windows.Shapes.Ellipse ellipse = new System.Windows.Shapes.Ellipse();

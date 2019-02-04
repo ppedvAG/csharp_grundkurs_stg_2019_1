@@ -15,12 +15,12 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Xml;
 using System.Xml.Serialization;
 using VectorPicasso.Klassen;
 
 namespace VectorPicasso
 {
-
 
     /// <summary>
     /// Interaction logic for MainWindow.xaml
@@ -97,27 +97,10 @@ namespace VectorPicasso
             //using sorgt dafür, dass die Datei auch bei einer Exception auf jeden Fall geschlossen wird
             using (StreamWriter writer = new StreamWriter(Dateiname, false))
             {
-                         
                 string jsonString = JsonConvert.SerializeObject(_grafikliste, _settings);
                 writer.Write(jsonString);
                 writer.Close();
             }
-
-            //using (StreamWriter writer = new StreamWriter(DateinameXML, false))
-            //{
-
-            //    List<string> wörter = new List<string>()
-            //    {
-            //        "Adasd",
-            //        "adsdas",
-            //        "adsad"
-            //    };
-                
-            //    XmlSerializer serializer = new XmlSerializer(typeof(List<string>));
-            //    serializer.Serialize(writer, wörter);
-   
-            //}
-
         }
 
         private void Laden_Click(object sender, RoutedEventArgs e)
@@ -130,10 +113,42 @@ namespace VectorPicasso
             }
 
             //Canvas wieder bemalen
+            canvas.Children.Clear();
             foreach (Grafik item in _grafikliste)
             {
                 item.ZeichneDich();
             }
         }
+
+        private void Speichern_XML_Click(object sender, RoutedEventArgs e)
+        {
+            XmlWrapper root = new XmlWrapper();
+            //Die Grafikliste in einem Wrapper-Objekt verpacken,
+            //sonst funktioniert die Umwanldung in XML nicht
+            root.Graphics = _grafikliste;
+            string jsonForXML = JsonConvert.SerializeObject(root, _settings);
+            JsonConvert.DeserializeXmlNode(jsonForXML, "root").Save(DateinameXML);
+        }
+
+        private void Laden_XML_Click(object sender, RoutedEventArgs e)
+        {
+            XmlDocument document = new XmlDocument();
+            document.Load(DateinameXML);
+            string json = JsonConvert.SerializeXmlNode(document, Newtonsoft.Json.Formatting.None, true);
+            XmlWrapper root = JsonConvert.DeserializeObject<XmlWrapper>(json, _settings);
+            _grafikliste = root.Graphics;
+
+            //Canvas wieder bemalen
+            canvas.Children.Clear();
+            foreach (Grafik item in _grafikliste)
+            {
+                item.ZeichneDich();
+            }
+        }
+    }
+
+    public class XmlWrapper
+    {
+        public ObservableCollection<Grafik> Graphics { get; set; }
     }
 }

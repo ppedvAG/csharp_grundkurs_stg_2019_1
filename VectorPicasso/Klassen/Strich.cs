@@ -9,6 +9,7 @@ namespace VectorPicasso.Klassen
 {
     public class Strich : ZweiPunkt
     {
+        
         public Strich(Point ursprung) : base(ursprung)
         {
         }
