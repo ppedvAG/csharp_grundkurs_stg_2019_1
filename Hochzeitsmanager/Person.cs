@@ -6,8 +6,33 @@ using System.Threading.Tasks;
 
 namespace Hochzeitsmanager
 {
-    public class Person
+    public class Person : ICloneable
     {
+        //Datentyp für eine Delegate-Variable
+        public delegate void HochzeitsFailDelegate(Person p1, Person p2, string grund);
+
+        //Events
+        //event-Schlüsselwort kapselt die Delegate-Variable in einer Art Property
+        public event HochzeitsFailDelegate HochzeitsFail;
+
+        #region Definition von event
+        //private HochzeitsFailDelegate _hochzeitsfail;
+        //public HochzeitsFailDelegate MyProperty
+        //{
+        //    set {
+        //        _hochzeitsfail += value;
+
+        //    }
+        //}
+        #endregion
+
+
+        private Person _verstecktePerson;
+        public Person VerstecktePerson
+        {
+            get { return  (Person)_verstecktePerson.Clone(); }
+            private set { _verstecktePerson = value; }
+        }
 
         //Eigenschaften: prop
         public string Vorname { get; private set; }
@@ -48,10 +73,7 @@ namespace Hochzeitsmanager
             get
             {
                 //Berechne das Alter auf Basis des Geburtsdatums und des heutigen Datums
-
                 DateTime today = DateTime.Now;
-                //return today.Year - Geburtsdatum.Year;
-
                 TimeSpan zeitraum = today - Geburtsdatum;
                 return (int)(zeitraum.Days / 365.241);
             }
@@ -77,12 +99,14 @@ namespace Hochzeitsmanager
 
 
         private Person _ehepartner;
+        private HochzeitsFailDelegate _hochzeitsProperty;
+
         public Person Ehepartner
         {
             get { return _ehepartner; }
             private set
             {
-                if(value == null)
+                if (value == null)
                 {
                     _ehepartner.Ehepartner = null;
                 }
@@ -119,23 +143,38 @@ namespace Hochzeitsmanager
         {
             //Zu heiratende Person muss existieren
             if (zuHeiratendePerson == null)
+            {
+                //? prüft ob HochzeitsFail null ist. Nur wenn es ungleich null, wird die Methode nach
+                //dem ? aufgerufen.
+                HochzeitsFail?.Invoke(this, zuHeiratendePerson, "Zu heiratende Person muss existieren");
                 return false;
+            }
 
             //Beide müssen volljährig sein
             if (zuHeiratendePerson.Alter < 18 || Alter < 18)
+            {
+                HochzeitsFail?.Invoke(this, zuHeiratendePerson, "Beide müssen volljährig sein");
                 return false;
+            }
 
             //Nicht sich selbst heiraten
             if (zuHeiratendePerson == this)
+            {
+                HochzeitsFail?.Invoke(this, zuHeiratendePerson, "Nicht sich selbst heiraten");
                 return false;
+            }
 
             //Vielehe verhindern
             if (this.Ehepartner != null || zuHeiratendePerson.Ehepartner != null)
-                return false;
-
-            //TODO: Gleichgeschlechtlichigkeit prüfen
-            if(HomoEheErlaubt != true && this.Geschlecht == zuHeiratendePerson.Geschlecht)
             {
+                HochzeitsFail?.Invoke(this, zuHeiratendePerson, "Vielehe verhindern");
+                return false;
+            }
+
+            //Gleichgeschlechtlichigkeit prüfen
+            if (HomoEheErlaubt != true && this.Geschlecht == zuHeiratendePerson.Geschlecht)
+            {
+                HochzeitsFail?.Invoke(this, zuHeiratendePerson, "Homoehe nicht erlaubt!");
                 return false;
             }
 
@@ -148,15 +187,13 @@ namespace Hochzeitsmanager
         public bool ScheideDich()
         {
             //kann geschieden werden?
-            if(Ehepartner != null)
+            if (Ehepartner != null)
             {
                 this.Ehepartner = null;
                 return true;
             }
             return false;
         }
-
-       
 
         /// <summary>
         /// Gibt die wichtigsten Informationen über das Objekt als String aus
@@ -177,12 +214,17 @@ namespace Hochzeitsmanager
             #endregion
 
             string verheiratet = ", ledig";
-            if(Ehepartner != null)
+            if (Ehepartner != null)
             {
                 verheiratet = $" verheiratet mit {Ehepartner.Name}";
             }
 
             return $"{Name} ({Alter}), {geschlecht}{verheiratet}";
+        }
+
+        public object Clone()
+        {
+            return this.MemberwiseClone();
         }
     }
 }

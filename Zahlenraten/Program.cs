@@ -17,29 +17,31 @@ namespace Zahlenraten
             int gerateneZahl = 0;
             int versuche = 0;
 
-            while (true)
-            {
-                gerateneZahl = int.Parse(Console.ReadLine());
-                versuche++;
-                if (zufallszahl == gerateneZahl)
-                {
-                    //Code wenn Bedingung wahr ist
-                    Console.WriteLine("Glückwunsch, die Zahl war richtig!");
-                    break;
-                }
-                else if (zufallszahl > gerateneZahl)
-                {
-                    //Code wenn Bedingung falsch ist
-                    Console.WriteLine("Die Zahl war zu groß!");
+            #region Variante mit break
+            //while (true)
+            //{
+            //    gerateneZahl = int.Parse(Console.ReadLine());
+            //    versuche++;
+            //    if (zufallszahl == gerateneZahl)
+            //    {
+            //        //Code wenn Bedingung wahr ist
+            //        Console.WriteLine("Glückwunsch, die Zahl war richtig!");
+            //        break;
+            //    }
+            //    else if (zufallszahl > gerateneZahl)
+            //    {
+            //        //Code wenn Bedingung falsch ist
+            //        Console.WriteLine("Die Zahl war zu groß!");
 
-                }
-                else
-                {
-                    //Code wenn beide Bedingungen falsch waren
-                    Console.WriteLine("Die Zahl war zu klein");
-                }
+            //    }
+            //    else
+            //    {
+            //        //Code wenn beide Bedingungen falsch waren
+            //        Console.WriteLine("Die Zahl war zu klein");
+            //    }
                
-            }
+            //}
+            #endregion
 
             do
             {
@@ -53,7 +55,7 @@ namespace Zahlenraten
                     //Code wenn Bedingung wahr ist
                     Console.WriteLine("Glückwunsch, die Zahl war richtig!");
                 }
-                else if (zufallszahl > gerateneZahl)
+                else if (zufallszahl < gerateneZahl)
                 {
                     //Code wenn Bedingung falsch ist
                     Console.WriteLine("Die Zahl war zu groß!");
@@ -64,33 +66,8 @@ namespace Zahlenraten
                     Console.WriteLine("Die Zahl war zu klein");
                 }
             } while (gerateneZahl != zufallszahl);
-
-
-            while (gerateneZahl != zufallszahl)
-            {
-                Console.Write("Rate eine Zahl zwischen 1 und 10: ");
-                gerateneZahl = int.Parse(Console.ReadLine());
-
-                if (zufallszahl == gerateneZahl)
-                {
-                    //Code wenn Bedingung wahr ist
-                    Console.WriteLine("Glückwunsch, die Zahl war richtig!");
-                }
-                else if (zufallszahl > gerateneZahl)
-                {
-                    //Code wenn Bedingung falsch ist
-                    Console.WriteLine("Die Zahl war zu groß!");
-                }
-                else
-                {
-                    //Code wenn beide Bedingungen falsch waren
-                    Console.WriteLine("Die Zahl war zu klein");
-                }
-            }
-
-            Console.WriteLine($"Du hattest {versuche} gebraucht");
-
-            //Anzahl der Versuche ausgeben
+            
+            Console.WriteLine($"Du hattest {versuche} Versuche gebraucht");
 
             Console.ReadKey();
         }

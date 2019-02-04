@@ -6,7 +6,15 @@
         xmlns:local="clr-namespace:VectorPicasso"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
-    <Grid>
-        
-    </Grid>
+    <DockPanel>
+        <StackPanel DockPanel.Dock="Top" Orientation="Horizontal">
+            <RadioButton Checked="RadioButton_Checked">Rechteck</RadioButton>
+            <RadioButton Checked="RadioButton_Checked">Punkt</RadioButton>
+            <Button Click="Speichern_Click">Speichern</Button>
+            <Button Click="Laden_Click">Laden</Button>
+        </StackPanel> 
+        <Canvas Name="canvas" Background="Beige" MouseUp="Canvas_MouseUp">
+            
+        </Canvas>
+    </DockPanel>
 </Window>

@@ -4,10 +4,10 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{71F88C62-40F0-4125-BC70-256549A3B0D0}</ProjectGuid>
+    <ProjectGuid>{4D5EED4B-C3C9-44C8-BED2-4E0D0F2BFA3A}</ProjectGuid>
     <OutputType>Exe</OutputType>
-    <RootNamespace>Lotto</RootNamespace>
-    <AssemblyName>Lotto</AssemblyName>
+    <RootNamespace>Delegate</RootNamespace>
+    <AssemblyName>Delegate</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -43,7 +43,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="MyRandom.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

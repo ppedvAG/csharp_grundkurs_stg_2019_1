@@ -18,5 +18,8 @@
         <ListBox Name="comboBoxZuHeiratendePerson" />
         <Button Click="Person_Heiraten_Click">Heirate</Button>
         <Button Click="Heirat_Popup_Click">Heiraten mit Popupbox</Button>
+        <ListBox Name="ListboxHochzeitsfehlerlog">
+            
+        </ListBox>
     </StackPanel>
 </Window>

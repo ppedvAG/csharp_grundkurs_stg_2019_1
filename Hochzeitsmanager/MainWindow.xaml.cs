@@ -47,13 +47,22 @@ namespace Hochzeitsmanager
             try
             {   
                 Person neuePerson = new Person(vorname, nachname, gdatum, geschlecht);
+                neuePerson.HochzeitsFail += HochzeitsFehlgeschlagen;
                 Personenliste.Add(neuePerson);
+
             }
             catch (Exception exp)
             {
                 MessageBox.Show(exp.Message);
                 return;
             }
+        }
+
+        private void HochzeitsFehlgeschlagen(Person p1, Person p2, string grund)
+        {
+            string hochzeitsfehler = $"{p1.Name} konnte {p2.Name} nicht heiraten weil: {grund}";
+            ListboxHochzeitsfehlerlog.Items.Add(hochzeitsfehler);
+            MessageBox.Show(hochzeitsfehler);
         }
 
         private void Person_Heiraten_Click(object sender, RoutedEventArgs e)
@@ -72,13 +81,11 @@ namespace Hochzeitsmanager
             bool heiratErfolgreich = personAusListBox.Heirate(personAusComboBox);
 
             if (heiratErfolgreich)
-            {
-                MessageBox.Show("Heirat war erfolgreich!");
+            { 
                 listboxPersonen.Items.Refresh();
                 comboBoxZuHeiratendePerson.Items.Refresh();
             }
-            else
-                MessageBox.Show("Heirat ungültig!");
+            
         }
 
         private void Heirat_Popup_Click(object sender, RoutedEventArgs e)
@@ -92,12 +99,7 @@ namespace Hochzeitsmanager
             
 
             bool heiratErfolgreich = personAusListBox.Heirate(zuHeiratendePerson);
-
-            if (heiratErfolgreich)
-                MessageBox.Show("Heirat war erfolgreich!");
-            else
-                MessageBox.Show("Heirat ungültig!");
-
+ 
 
         }
 
